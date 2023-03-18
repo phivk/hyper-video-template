@@ -4,10 +4,10 @@
   </header>
   <main>
     <div class="player">
-      <video ref="video" controls :src="videoSrc" @timeupdate="onTimeUpdate"></video>
-      <button class="bg-red" @click="setVideoSrc('red')">red</button>
-      <button class="bg-green" @click="setVideoSrc('green')">green</button>
-      <button class="bg-blue" @click="setVideoSrc('blue')">blue</button>
+      <video ref="video" controls :src="videos[videoKey]" @timeupdate="onTimeUpdate"></video>
+      <button class="bg-red" @click="setVideo('red')">red</button>
+      <button class="bg-green" @click="setVideo('green')">green</button>
+      <button class="bg-blue" @click="setVideo('blue')">blue</button>
     </div>
     <div>{{ footnoteText }}</div>
   </main>
@@ -17,7 +17,7 @@
 export default {
   data() {
     return {
-      videoSrc: undefined,
+      videoKey: 'red',
       videos: {
         red: 'src/static/videos/video-red.mp4',
         green: 'src/static/videos/video-green.mp4',
@@ -35,12 +35,10 @@ export default {
       footnoteText: undefined
     }
   },
-  created() {
-    this.videoSrc = this.videos.red
-  },
+  created() {},
   methods: {
-    setVideoSrc(video) {
-      this.videoSrc = this.videos[video]
+    setVideo(videoKey) {
+      this.videoKey = videoKey
     },
     onTimeUpdate: function () {
       this.currentTime = this.$refs.video.currentTime
