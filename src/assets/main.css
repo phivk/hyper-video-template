@@ -27,3 +27,62 @@ a,
     place-items: center;
   }
 }
+
+/* Atomic styles */
+.w-full {
+  width: 100%;
+}
+.h-full {
+  height: 100%;
+}
+.max-w-full {
+  width: 100%;
+}
+.bg-red {
+  background-color: #904140;
+}
+.bg-green {
+  background-color: #287429;
+}
+.bg-blue {
+  background-color: #465269;
+}
+.m-2 {
+  margin: 0.5rem;
+}
+.m-4 {
+  margin: 1rem;
+}
+.p-2 {
+  padding: 0.5rem;
+}
+.absolute {
+  position: absolute;
+}
+.top-0 {
+  top: 0;
+}
+.right-0 {
+  right: 0;
+}
+.left-0 {
+  left: 0;
+}
+.flex {
+  display: flex;
+}
+.flex-col {
+  flex-direction: column;
+}
+.flex-row {
+  flex-direction: row;
+}
+.justify-center {
+  justify-content: center;
+}
+.items-center {
+  align-items: center;
+}
+.bg-black-50 {
+  background-color: rgba(0, 0, 0, 0.5);
+}
