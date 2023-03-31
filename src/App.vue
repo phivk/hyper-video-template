@@ -3,10 +3,12 @@ import VideoPlayer from './components/VideoPlayer.vue'
 </script>
 
 <template>
-  <header>
-    <h1>Video Player</h1>
-  </header>
+  <h1 class="tc">Hypervideo with HTML5 and Vue.js</h1>
   <VideoPlayer />
 </template>
 
-<style scoped></style>
+<style scoped>
+.tc {
+  text-align: center;
+}
+</style>
