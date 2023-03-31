@@ -4,7 +4,7 @@
   </header>
   <main>
     <div class="player">
-      <video ref="video" controls :src="videos[videoKey]" @timeupdate="onTimeUpdate"></video>
+      <video ref="video" controls :src="currentVideo.path" @timeupdate="onTimeUpdate"></video>
       <div class="video-button-wrapper">
         <button class="m-2 bg-red" @click="setVideo('red')">red</button>
         <button class="m-2 bg-green" @click="setVideo('green')">green</button>
@@ -21,19 +21,41 @@ export default {
     return {
       videoKey: 'red',
       videos: {
-        red: 'src/static/videos/video-red.mp4',
-        green: 'src/static/videos/video-green.mp4',
-        blue: 'src/static/videos/video-blue.mp4'
+        red: {
+          path: 'src/static/videos/video-red.mp4',
+          events: [
+            {
+              type: 'footnote',
+              start: 1,
+              end: 3,
+              text: 'Hello RED Footnote!'
+            }
+          ]
+        },
+        green: {
+          path: 'src/static/videos/video-green.mp4',
+          events: [
+            {
+              type: 'footnote',
+              start: 1,
+              end: 3,
+              text: 'Hello GREEN Footnote!'
+            }
+          ]
+        },
+        blue: {
+          path: 'src/static/videos/video-blue.mp4',
+          events: [
+            {
+              type: 'footnote',
+              start: 1,
+              end: 3,
+              text: 'Hello BLUE Footnote!'
+            }
+          ]
+        }
       },
       currentTime: undefined,
-      timedEvents: [
-        {
-          type: 'footnote',
-          start: 1,
-          end: 5,
-          text: 'Hello Footnote!'
-        }
-      ],
       footnoteText: undefined
     }
   },
@@ -56,19 +78,26 @@ export default {
       }
     }
   },
+  computed: {
+    currentVideo() {
+      return this.videos[this.videoKey]
+    }
+  },
   watch: {
     currentTime: {
       handler(curVal, oldVal) {
-        for (var i = 0; i < this.timedEvents.length; i++) {
-          let isCurValIn = curVal >= this.timedEvents[i].start && curVal <= this.timedEvents[i].end
-          let isOldValIn = oldVal >= this.timedEvents[i].start && oldVal <= this.timedEvents[i].end
+        for (var i = 0; i < this.currentVideo.events.length; i++) {
+          let isCurValIn =
+            curVal >= this.currentVideo.events[i].start && curVal <= this.currentVideo.events[i].end
+          let isOldValIn =
+            oldVal >= this.currentVideo.events[i].start && oldVal <= this.currentVideo.events[i].end
 
           if (isCurValIn && !isOldValIn) {
             // entered timing
-            this.enableEvent(this.timedEvents[i])
+            this.enableEvent(this.currentVideo.events[i])
           } else if (!isCurValIn && isOldValIn) {
             // exited timing
-            this.disableEvent(this.timedEvents[i])
+            this.disableEvent(this.currentVideo.events[i])
           }
         }
       }
