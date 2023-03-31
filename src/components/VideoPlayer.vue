@@ -39,9 +39,14 @@ export default {
           path: 'src/static/videos/video-red.mp4',
           events: [
             {
-              type: 'footnote',
+              type: 'overlay',
               start: 1,
-              end: 3,
+              end: 5
+            },
+            {
+              type: 'footnote',
+              start: 4,
+              end: 6,
               text: 'Hello RED Footnote!'
             }
           ]
@@ -71,7 +76,7 @@ export default {
       },
       currentTime: undefined,
       footnoteText: undefined,
-      showOverlay: true
+      showOverlay: false
     }
   },
   created() {},
@@ -82,18 +87,24 @@ export default {
     onTimeUpdate: function () {
       this.currentTime = this.$refs.video.currentTime
     },
-    enableEvent(timedEvent) {
-      if (timedEvent.type === 'footnote') {
-        this.footnoteText = timedEvent.text
+    enableEvent(event) {
+      if (event.type === 'footnote') {
+        this.footnoteText = event.text
+      } else if (event.type === 'overlay') {
+        this.showOverlay = true
+        this.$refs.video.pause()
       }
     },
-    disableEvent(timedEvent) {
-      if (timedEvent.type === 'footnote') {
+    disableEvent(event) {
+      if (event.type === 'footnote') {
         this.footnoteText = undefined
+      } else if (event.type === 'overlay') {
+        this.showOverlay = false
       }
     },
     closeOverlay() {
       this.showOverlay = false
+      this.$refs.video.play()
     }
   },
   computed: {
