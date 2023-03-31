@@ -87,6 +87,7 @@ export default {
   created() {},
   methods: {
     setVideo(videoKey) {
+      this.hideOverlay()
       this.videoKey = videoKey
     },
     onTimeUpdate: function () {
