@@ -5,9 +5,11 @@
   <main>
     <div class="player">
       <video ref="video" controls :src="videos[videoKey]" @timeupdate="onTimeUpdate"></video>
-      <button class="bg-red" @click="setVideo('red')">red</button>
-      <button class="bg-green" @click="setVideo('green')">green</button>
-      <button class="bg-blue" @click="setVideo('blue')">blue</button>
+      <div class="video-button-wrapper">
+        <button class="m-2 bg-red" @click="setVideo('red')">red</button>
+        <button class="m-2 bg-green" @click="setVideo('green')">green</button>
+        <button class="m-2 bg-blue" @click="setVideo('blue')">blue</button>
+      </div>
     </div>
     <div>{{ footnoteText }}</div>
   </main>
@@ -83,14 +85,22 @@ button {
   padding: 16px 32px;
   text-align: center;
   font-size: 16px;
+  border-radius: 4px;
 }
-button.bg-red {
+.bg-red {
   background-color: #904140;
 }
-button.bg-green {
+.bg-green {
   background-color: #287429;
 }
-button.bg-blue {
+.bg-blue {
   background-color: #465269;
+}
+.video-button-wrapper {
+  display: flex;
+  justify-content: center;
+}
+.m-2 {
+  margin: 0.5rem;
 }
 </style>
