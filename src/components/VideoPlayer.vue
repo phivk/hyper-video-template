@@ -8,9 +8,10 @@
         :src="currentVideo.path"
         @timeupdate="onTimeUpdate"
       ></video>
-      <div class="video-overlay" v-if="showOverlay">
-        <div class="top-right m-4">
-          <span class="" @click="closeOverlay()">X</span>
+      <div class="video-overlay" v-if="isOverlayShown">
+        <div class="top-right m-4 flex flex-col">
+          <span class="" @click="hideOverlay()">X</span>
+          <span class="video-overlay-timer">{{ videoOverlayTimer }}</span>
         </div>
         <div class="video-button-wrapper">
           <button class="m-2 bg-red" @click="setVideo('red')">red</button>
@@ -76,7 +77,8 @@ export default {
       },
       currentTime: undefined,
       footnoteText: undefined,
-      showOverlay: false
+      isOverlayShown: false,
+      videoOverlayTimer: undefined
     }
   },
   created() {},
@@ -91,19 +93,23 @@ export default {
       if (event.type === 'footnote') {
         this.footnoteText = event.text
       } else if (event.type === 'overlay') {
-        this.showOverlay = true
-        this.$refs.video.pause()
+        this.showOverlay()
       }
     },
     disableEvent(event) {
       if (event.type === 'footnote') {
         this.footnoteText = undefined
       } else if (event.type === 'overlay') {
-        this.showOverlay = false
+        this.hideOverlay()
       }
     },
-    closeOverlay() {
-      this.showOverlay = false
+    showOverlay() {
+      this.isOverlayShown = true
+      this.$refs.video.pause()
+      this.videoOverlayTimer = 5
+    },
+    hideOverlay() {
+      this.isOverlayShown = false
       this.$refs.video.play()
     }
   },
@@ -128,6 +134,17 @@ export default {
             // exited timing
             this.disableEvent(this.currentVideo.events[i])
           }
+        }
+      }
+    },
+    videoOverlayTimer: {
+      handler(value) {
+        if (value > 0) {
+          setTimeout(() => {
+            this.videoOverlayTimer--
+          }, 1000)
+        } else {
+          this.hideOverlay()
         }
       }
     }
@@ -189,5 +206,14 @@ button {
   position: absolute;
   top: 0;
   right: 0;
+}
+.flex {
+  display: flex;
+}
+.flex-col {
+  flex-direction: column;
+}
+.flex-row {
+  flex-direction: row;
 }
 </style>
