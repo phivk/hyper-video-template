@@ -1,21 +1,35 @@
 <template>
-  <header>
-    <h1>Video Player</h1>
-  </header>
   <main>
-    <div class="player">
-      <video ref="video" controls :src="currentVideo.path" @timeupdate="onTimeUpdate"></video>
-      <div class="video-button-wrapper">
-        <button class="m-2 bg-red" @click="setVideo('red')">red</button>
-        <button class="m-2 bg-green" @click="setVideo('green')">green</button>
-        <button class="m-2 bg-blue" @click="setVideo('blue')">blue</button>
+    <div class="video-player">
+      <video
+        class="video"
+        ref="video"
+        controls
+        :src="currentVideo.path"
+        @timeupdate="onTimeUpdate"
+      ></video>
+      <div class="video-overlay" v-if="showOverlay">
+        <div class="top-right m-4">
+          <span class="" @click="closeOverlay()">X</span>
+        </div>
+        <div class="video-button-wrapper">
+          <button class="m-2 bg-red" @click="setVideo('red')">red</button>
+          <button class="m-2 bg-green" @click="setVideo('green')">green</button>
+          <button class="m-2 bg-blue" @click="setVideo('blue')">blue</button>
+        </div>
       </div>
+    </div>
+    <div class="video-button-wrapper">
+      <button class="m-2 bg-red" @click="setVideo('red')">red</button>
+      <button class="m-2 bg-green" @click="setVideo('green')">green</button>
+      <button class="m-2 bg-blue" @click="setVideo('blue')">blue</button>
     </div>
     <div>{{ footnoteText }}</div>
   </main>
 </template>
 
 <script>
+import CommunityIcon from './icons/IconCommunity.vue'
 export default {
   data() {
     return {
@@ -56,7 +70,8 @@ export default {
         }
       },
       currentTime: undefined,
-      footnoteText: undefined
+      footnoteText: undefined,
+      showOverlay: true
     }
   },
   created() {},
@@ -76,6 +91,9 @@ export default {
       if (timedEvent.type === 'footnote') {
         this.footnoteText = undefined
       }
+    },
+    closeOverlay() {
+      this.showOverlay = false
     }
   },
   computed: {
@@ -107,6 +125,13 @@ export default {
 </script>
 
 <style scoped>
+.video-player {
+  max-width: 100%;
+  position: relative;
+}
+.video {
+  width: 100%;
+}
 button {
   border: none;
   color: black;
@@ -131,5 +156,27 @@ button {
 }
 .m-2 {
   margin: 0.5rem;
+}
+.m-4 {
+  margin: 1rem;
+}
+.p-2 {
+  padding: 0.5rem;
+}
+.video-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.top-right {
+  position: absolute;
+  top: 0;
+  right: 0;
 }
 </style>
