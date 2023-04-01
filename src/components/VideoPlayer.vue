@@ -20,7 +20,8 @@
           />
           <span class="cursor-default">{{ videoOverlayTimer }}</span>
         </div>
-        <VideoButtons @set-video="setVideo" />
+        <!-- dynamic component, set by the overlay event -->
+        <component :is="overlayComponent" @set-video="setVideo"></component>
       </div>
     </div>
     <VideoButtons @set-video="setVideo" />
@@ -44,7 +45,8 @@ export default {
             {
               type: 'overlay',
               start: 1,
-              end: 5
+              end: 5,
+              component: 'VideoButtons'
             },
             {
               type: 'footnote',
@@ -80,7 +82,8 @@ export default {
       currentTime: undefined,
       footnoteText: undefined,
       isOverlayShown: false,
-      videoOverlayTimer: undefined
+      videoOverlayTimer: undefined,
+      overlayComponent: undefined
     }
   },
   created() {},
@@ -96,7 +99,7 @@ export default {
       if (event.type === 'footnote') {
         this.footnoteText = event.text
       } else if (event.type === 'overlay') {
-        this.showOverlay()
+        this.showOverlay(event)
       }
     },
     disableEvent(event) {
@@ -106,10 +109,11 @@ export default {
         this.hideOverlay()
       }
     },
-    showOverlay() {
+    showOverlay(event) {
       this.isOverlayShown = true
       this.$refs.video.pause()
       this.videoOverlayTimer = 5
+      this.overlayComponent = event.component
     },
     hideOverlay() {
       this.isOverlayShown = false
