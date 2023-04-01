@@ -10,7 +10,7 @@
         :controls="!hasCustomControls"
         class="w-full"
       ></video>
-      <div class="video-overlay" v-if="isOverlayShown">
+      <div class="video-overlay-container" v-if="isOverlayShown">
         <div class="absolute top-0 right-0 m-4 flex flex-col text-center text-white">
           <font-awesome-icon
             icon="fa-solid fa-xmark"
@@ -23,9 +23,7 @@
         <!-- dynamic component, set by the overlay event -->
         <component :is="overlayComponent" @set-video="setVideo"></component>
       </div>
-      <div class="video-overlay" v-if="isImageShown">
-        <img :src="image.src" :alt="image.alt" />
-      </div>
+      <img class="video-overlay-image" :src="image.src" :alt="image.alt" v-if="isImageShown" />
       <div class="video-controls" v-if="hasCustomControls">
         <button @click="togglePlay">
           {{ isPlaying ? 'Pause' : 'Play' }}
@@ -191,7 +189,7 @@ export default {
   max-width: 100%;
 }
 
-.video-overlay {
+.video-overlay-container {
   position: absolute;
   width: 100%;
   height: 100%;
@@ -201,6 +199,15 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 2rem;
+}
+
+.video-overlay-image {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  max-width: 50%;
+  max-height: 70%;
 }
 
 .video-controls {

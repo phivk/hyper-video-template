@@ -49,11 +49,26 @@
 .top-0 {
   top: 0;
 }
+.bottom-0 {
+  bottom: 0;
+}
 .right-0 {
   right: 0;
 }
 .left-0 {
   left: 0;
+}
+.top-4 {
+  top: 1rem;
+}
+.bottom-4 {
+  bottom: 1rem;
+}
+.right-4 {
+  right: 1rem;
+}
+.left-4 {
+  left: 1rem;
 }
 .flex {
   display: flex;
@@ -69,6 +84,18 @@
 }
 .items-center {
   align-items: center;
+}
+.justify-start {
+  justify-content: start !important;
+}
+.items-start {
+  align-items: start !important;
+}
+.justify-end {
+  justify-content: end !important;
+}
+.items-end {
+  align-items: end !important;
 }
 .bg-black-50 {
   background-color: rgba(0, 0, 0, 0.5);
