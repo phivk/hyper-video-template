@@ -1,12 +1,14 @@
 <template>
   <main>
-    <div class="relative max-w-full">
+    <div class="video-container">
       <video
-        class="w-full"
         ref="video"
-        controls
         :src="currentVideo.path"
-        @timeupdate="onTimeUpdate"
+        @timeupdate="onVideoTimeUpdate"
+        @play="onVideoPlay"
+        @pause="onVideoPause"
+        :controls="!hasCustomControls"
+        class="w-full"
       ></video>
       <div class="video-overlay" v-if="isOverlayShown">
         <div class="absolute top-0 right-0 m-4 flex flex-col text-center text-white">
@@ -24,9 +26,15 @@
       <div class="video-overlay" v-if="isImageShown">
         <img :src="image.src" :alt="image.alt" />
       </div>
+      <div class="video-controls" v-if="hasCustomControls">
+        <button @click="togglePlay">
+          {{ isPlaying ? 'Pause' : 'Play' }}
+        </button>
+        <div class="time-display">{{ currentTimeString }} / {{ durationString }}</div>
+      </div>
     </div>
-    <VideoButtons @set-video="setVideo" />
     <div>{{ footnoteText }}</div>
+    <VideoButtons @set-video="setVideo" />
   </main>
 </template>
 
@@ -40,6 +48,13 @@ export default {
   },
   data() {
     return {
+      isPlaying: false,
+      isMuted: false,
+      volume: 1,
+      progress: 0,
+      currentTimeString: '0:00',
+      durationString: '0:00',
+      hasCustomControls: false,
       videoKey: 'red',
       videos: {
         red: {
@@ -110,9 +125,6 @@ export default {
       this.hideOverlay()
       this.videoKey = videoKey
     },
-    onTimeUpdate: function () {
-      this.currentTime = this.$refs.video.currentTime
-    },
     enableEvent(event) {
       if (event.type === 'footnote') {
         this.footnoteText = event.text
@@ -151,6 +163,35 @@ export default {
     hideImage() {
       this.image = undefined
       this.isImageShown = false
+    },
+    /* video playback methods */
+    onVideoTimeUpdate: function () {
+      const video = this.$refs.video
+      this.currentTime = video.currentTime
+
+      const minutes = Math.floor(video.currentTime / 60)
+      const seconds = Math.floor(video.currentTime % 60)
+      this.currentTimeString = `${minutes}:${seconds.toString().padStart(2, '0')}`
+
+      const durationMinutes = Math.floor(video.duration / 60)
+      const durationSeconds = Math.floor(video.duration % 60)
+      this.durationString = `${durationMinutes}:${durationSeconds.toString().padStart(2, '0')}`
+
+      this.progress = (video.currentTime / video.duration) * 100
+    },
+    togglePlay() {
+      if (this.isPlaying) {
+        this.$refs.video.pause()
+      } else {
+        this.$refs.video.play()
+      }
+      this.isPlaying = !this.isPlaying
+    },
+    onVideoPlay() {
+      this.isPlaying = true
+    },
+    onVideoPause() {
+      this.isPlaying = false
     }
   },
   computed: {
@@ -193,6 +234,11 @@ export default {
 </script>
 
 <style scoped>
+.video-container {
+  position: relative;
+  max-width: 100%;
+}
+
 .video-overlay {
   position: absolute;
   width: 100%;
@@ -203,5 +249,27 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.video-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+}
+
+.video-controls button {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1em;
+  cursor: pointer;
+  margin-right: 10px;
 }
 </style>
