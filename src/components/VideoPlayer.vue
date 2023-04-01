@@ -31,9 +31,11 @@
 
 <script>
 import VideoButtons from './VideoButtons.vue'
+import HelloWorld from './HelloWorld.vue'
 export default {
   components: {
-    VideoButtons
+    VideoButtons,
+    HelloWorld
   },
   data() {
     return {
@@ -64,6 +66,12 @@ export default {
               start: 1,
               end: 3,
               text: 'Hello GREEN Footnote!'
+            },
+            {
+              type: 'overlay',
+              start: 4,
+              end: 7,
+              component: 'HelloWorld'
             }
           ]
         },
