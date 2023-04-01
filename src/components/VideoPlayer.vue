@@ -8,14 +8,12 @@
         :src="currentVideo.path"
         @timeupdate="onTimeUpdate"
       ></video>
-      <div
-        class="absolute w-full h-full top-0 left-0 bg-black-50 flex justify-center items-center"
-        v-if="isOverlayShown"
-      >
-        <div class="absolute top-0 right-0 m-4 flex flex-col text-center">
+      <div class="video-overlay" v-if="isOverlayShown">
+        <div class="absolute top-0 right-0 m-4 flex flex-col text-center text-white">
           <font-awesome-icon
             icon="fa-solid fa-xmark"
             class="text-xl cursor-pointer"
+            color="#FFF"
             @click="hideOverlay()"
           />
           <span class="cursor-default">{{ videoOverlayTimer }}</span>
@@ -23,10 +21,7 @@
         <!-- dynamic component, set by the overlay event -->
         <component :is="overlayComponent" @set-video="setVideo"></component>
       </div>
-      <div
-        class="absolute w-full h-full top-0 left-0 bg-black-50 flex justify-center items-center"
-        v-if="isImageShown"
-      >
+      <div class="video-overlay" v-if="isImageShown">
         <img :src="image.src" :alt="image.alt" />
       </div>
     </div>
@@ -197,4 +192,16 @@ export default {
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+.video-overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+</style>
