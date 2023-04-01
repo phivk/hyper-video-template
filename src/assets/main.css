@@ -86,3 +86,6 @@ a,
 .bg-black-50 {
   background-color: rgba(0, 0, 0, 0.5);
 }
+.text-center {
+  text-align: center;
+}
