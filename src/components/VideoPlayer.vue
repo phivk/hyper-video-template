@@ -46,8 +46,15 @@ export default {
     VideoButtons,
     HelloWorld
   },
+  props: {
+    videos: {
+      type: Object,
+      required: true
+    }
+  },
   data() {
     return {
+      videoKey: Object.keys(this.videos)[0],
       isPlaying: false,
       isMuted: false,
       volume: 1,
@@ -55,61 +62,6 @@ export default {
       currentTimeString: '0:00',
       durationString: '0:00',
       hasCustomControls: false,
-      videoKey: 'red',
-      videos: {
-        red: {
-          path: 'src/static/videos/video-red.mp4',
-          events: [
-            {
-              type: 'overlay',
-              start: 1,
-              end: 5,
-              component: 'VideoButtons'
-            },
-            {
-              type: 'footnote',
-              start: 4,
-              end: 6,
-              text: 'Hello RED Footnote!'
-            }
-          ]
-        },
-        green: {
-          path: 'src/static/videos/video-green.mp4',
-          events: [
-            {
-              type: 'footnote',
-              start: 1,
-              end: 3,
-              text: 'Hello GREEN Footnote!'
-            },
-            {
-              type: 'overlay',
-              start: 4,
-              end: 7,
-              component: 'HelloWorld'
-            }
-          ]
-        },
-        blue: {
-          path: 'src/static/videos/video-blue.mp4',
-          events: [
-            {
-              type: 'footnote',
-              start: 1,
-              end: 3,
-              text: 'Hello BLUE Footnote!'
-            },
-            {
-              type: 'image',
-              start: 4,
-              end: 6,
-              src: 'https://placekitten.com/200/287',
-              alt: 'a cute kitten'
-            }
-          ]
-        }
-      },
       currentTime: undefined,
       footnoteText: undefined,
       isOverlayShown: false,
