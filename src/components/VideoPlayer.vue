@@ -12,9 +12,13 @@
         class="absolute w-full h-full top-0 left-0 bg-black-50 flex justify-center items-center"
         v-if="isOverlayShown"
       >
-        <div class="absolute top-0 right-0 m-4 flex flex-col">
-          <span class="" @click="hideOverlay()">X</span>
-          <span class="video-overlay-timer">{{ videoOverlayTimer }}</span>
+        <div class="absolute top-0 right-0 m-4 flex flex-col text-center">
+          <font-awesome-icon
+            icon="fa-solid fa-xmark"
+            class="text-xl cursor-pointer"
+            @click="hideOverlay()"
+          />
+          <span class="cursor-default">{{ videoOverlayTimer }}</span>
         </div>
         <div class="flex justify-center">
           <button class="m-2 bg-red" @click="setVideo('red')">red</button>
@@ -29,6 +33,13 @@
       <button class="m-2 bg-blue" @click="setVideo('blue')">blue</button>
     </div>
     <div>{{ footnoteText }}</div>
+    <div>
+      <font-awesome-icon icon="fa-solid fa-house" />
+      <font-awesome-icon icon="fa-solid fa-play" />
+      <font-awesome-icon icon="fa-solid fa-pause" />
+      <font-awesome-icon icon="fa-solid fa-times-circle" />
+      <font-awesome-icon icon="fa-solid fa-xmark" />
+    </div>
   </main>
 </template>
 
@@ -145,7 +156,7 @@ export default {
       handler(value) {
         if (value > 0) {
           setTimeout(() => {
-            this.videoOverlayTimer--
+            // this.videoOverlayTimer--
           }, 1000)
         } else {
           this.hideOverlay()
