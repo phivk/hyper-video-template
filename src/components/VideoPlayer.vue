@@ -23,6 +23,12 @@
         <!-- dynamic component, set by the overlay event -->
         <component :is="overlayComponent" @set-video="setVideo"></component>
       </div>
+      <div
+        class="absolute w-full h-full top-0 left-0 bg-black-50 flex justify-center items-center"
+        v-if="isImageShown"
+      >
+        <img :src="image.src" :alt="image.alt" />
+      </div>
     </div>
     <VideoButtons @set-video="setVideo" />
     <div>{{ footnoteText }}</div>
@@ -83,6 +89,13 @@ export default {
               start: 1,
               end: 3,
               text: 'Hello BLUE Footnote!'
+            },
+            {
+              type: 'image',
+              start: 4,
+              end: 6,
+              src: 'https://placekitten.com/200/287',
+              alt: 'a cute kitten'
             }
           ]
         }
@@ -91,7 +104,9 @@ export default {
       footnoteText: undefined,
       isOverlayShown: false,
       videoOverlayTimer: undefined,
-      overlayComponent: undefined
+      overlayComponent: undefined,
+      isImageShown: false,
+      image: undefined
     }
   },
   created() {},
@@ -108,6 +123,8 @@ export default {
         this.footnoteText = event.text
       } else if (event.type === 'overlay') {
         this.showOverlay(event)
+      } else if (event.type === 'image') {
+        this.showImage(event)
       }
     },
     disableEvent(event) {
@@ -115,6 +132,8 @@ export default {
         this.footnoteText = undefined
       } else if (event.type === 'overlay') {
         this.hideOverlay()
+      } else if (event.type === 'image') {
+        this.hideImage()
       }
     },
     showOverlay(event) {
@@ -126,6 +145,17 @@ export default {
     hideOverlay() {
       this.isOverlayShown = false
       this.$refs.video.play()
+    },
+    showImage(event) {
+      this.image = {
+        src: event.src,
+        alt: event.alt
+      }
+      this.isImageShown = true
+    },
+    hideImage() {
+      this.image = undefined
+      this.isImageShown = false
     }
   },
   computed: {
