@@ -33,18 +33,10 @@
       <button class="m-2 bg-blue" @click="setVideo('blue')">blue</button>
     </div>
     <div>{{ footnoteText }}</div>
-    <div>
-      <font-awesome-icon icon="fa-solid fa-house" />
-      <font-awesome-icon icon="fa-solid fa-play" />
-      <font-awesome-icon icon="fa-solid fa-pause" />
-      <font-awesome-icon icon="fa-solid fa-times-circle" />
-      <font-awesome-icon icon="fa-solid fa-xmark" />
-    </div>
   </main>
 </template>
 
 <script>
-import CommunityIcon from './icons/IconCommunity.vue'
 export default {
   data() {
     return {
