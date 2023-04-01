@@ -20,24 +20,20 @@
           />
           <span class="cursor-default">{{ videoOverlayTimer }}</span>
         </div>
-        <div class="flex justify-center">
-          <button class="m-2 bg-red" @click="setVideo('red')">red</button>
-          <button class="m-2 bg-green" @click="setVideo('green')">green</button>
-          <button class="m-2 bg-blue" @click="setVideo('blue')">blue</button>
-        </div>
+        <VideoButtons @set-video="setVideo" />
       </div>
     </div>
-    <div class="flex justify-center">
-      <button class="m-2 bg-red" @click="setVideo('red')">red</button>
-      <button class="m-2 bg-green" @click="setVideo('green')">green</button>
-      <button class="m-2 bg-blue" @click="setVideo('blue')">blue</button>
-    </div>
+    <VideoButtons @set-video="setVideo" />
     <div>{{ footnoteText }}</div>
   </main>
 </template>
 
 <script>
+import VideoButtons from './VideoButtons.vue'
 export default {
+  components: {
+    VideoButtons
+  },
   data() {
     return {
       videoKey: 'red',
@@ -159,14 +155,4 @@ export default {
 }
 </script>
 
-<style scoped>
-button {
-  border: none;
-  color: black;
-  font-weight: bold;
-  padding: 16px 32px;
-  text-align: center;
-  font-size: 16px;
-  border-radius: 4px;
-}
-</style>
+<style scoped></style>
