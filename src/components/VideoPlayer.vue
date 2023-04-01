@@ -156,7 +156,7 @@ export default {
       handler(value) {
         if (value > 0) {
           setTimeout(() => {
-            // this.videoOverlayTimer--
+            this.videoOverlayTimer--
           }, 1000)
         } else {
           this.hideOverlay()
