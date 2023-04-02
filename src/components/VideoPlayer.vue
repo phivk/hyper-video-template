@@ -84,6 +84,7 @@ export default {
   methods: {
     setVideo(videoKey) {
       this.hideOverlay()
+      this.footnoteText = undefined
       this.videoKey = videoKey
     },
     enableEvent(event) {
