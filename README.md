@@ -2,7 +2,7 @@
 
 Hi 👋 This is a hackable template for creating Hypervideo experiences using Vue.
 
-Originally developed for the Human Machine Interface module at [Internationale Filmschule Köln](https://www.filmschule.de/en).
+Originally developed for the Human Machine Interface course at [Internationale Filmschule Köln](https://www.filmschule.de/en), April 2023.
 
 Based on a Vue 3 and Vite Template, scaffolded via
 
