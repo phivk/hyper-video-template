@@ -16,6 +16,11 @@
         <component :is="overlayComponent" @set-video="setVideo"></component>
       </VideoOverlay>
       <img class="video-image" :src="image.src" :alt="image.alt" v-if="isImageShown" />
+      <VideoLowerThird
+        v-if="isLowerThirdShown"
+        :title="lowerThirdTitle"
+        :subTitle="lowerThirdSubTitle"
+      ></VideoLowerThird>
       <div class="video-controls" v-if="hasCustomControls">
         <font-awesome-icon
           v-if="isPlaying"
@@ -42,11 +47,13 @@
 <script>
 import VideoButtons from './VideoButtons.vue'
 import VideoOverlay from './VideoOverlay.vue'
+import VideoLowerThird from './VideoLowerThird.vue'
 import HelloWorld from './HelloWorld.vue'
 export default {
   components: {
     VideoButtons,
     VideoOverlay,
+    VideoLowerThird,
     HelloWorld
   },
   props: {
@@ -67,11 +74,14 @@ export default {
       hasCustomControls: false,
       currentTime: undefined,
       footnoteText: undefined,
-      isOverlayShown: false,
       videoOverlayTimer: undefined,
       overlayComponent: undefined,
+      isOverlayShown: false,
       isImageShown: false,
-      image: undefined
+      isLowerThirdShown: false,
+      image: undefined,
+      lowerThirdTitle: undefined,
+      lowerThirdSubTitle: undefined
     }
   },
   created() {},
@@ -87,6 +97,8 @@ export default {
         this.showOverlay(event)
       } else if (event.type === 'image') {
         this.showImage(event)
+      } else if (event.type === 'lower-third') {
+        this.showLowerThird(event)
       }
     },
     disableEvent(event) {
@@ -96,6 +108,8 @@ export default {
         this.hideOverlay()
       } else if (event.type === 'image') {
         this.hideImage()
+      } else if (event.type === 'lower-third') {
+        this.hideLowerThird()
       }
     },
     showOverlay(event) {
@@ -117,6 +131,17 @@ export default {
     hideImage() {
       this.image = undefined
       this.isImageShown = false
+    },
+    showLowerThird(event) {
+      console.log('event', event)
+      this.lowerThirdTitle = event.title
+      this.lowerThirdSubTitle = event.subTitle
+      this.isLowerThirdShown = true
+    },
+    hideLowerThird() {
+      this.lowerThirdTitle = undefined
+      this.lowerThirdSubTitle = undefined
+      this.isLowerThirdShown = false
     },
     /* video playback methods */
     onVideoTimeUpdate: function () {

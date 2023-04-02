@@ -44,14 +44,16 @@ const videos = {
     path: 'src/static/videos/video-blue.mp4',
     events: [
       {
-        type: 'footnote',
+        type: 'lower-third',
         start: 1,
-        end: 3,
-        text: 'Hello BLUE Footnote!'
+        end: 4,
+        title: 'Hello Lower Third',
+        subTitle:
+          'In the television industry, a lower third is a graphic overlay placed in the title-safe lower area of the screen, though not necessarily the entire lower third of it, as the name suggests.'
       },
       {
         type: 'image',
-        start: 4,
+        start: 5,
         end: 9,
         src: 'https://placekitten.com/200/287',
         alt: 'a cute kitten'
