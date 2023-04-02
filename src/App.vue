@@ -13,7 +13,7 @@ const videos = {
         type: 'overlay',
         start: 1,
         end: 5,
-        component: 'VideoButtons'
+        component: 'VideoSelector'
       },
       {
         type: 'footnote',

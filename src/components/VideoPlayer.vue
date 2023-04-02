@@ -13,9 +13,14 @@
       <VideoOverlay v-if="isOverlayShown" @hide-overlay="hideOverlay">
         <!-- insert child elements of VideoOverlay here -->
         <!-- the one below is a dynamic component, set by the overlay event -->
-        <component :is="overlayComponent" @set-video="setVideo"></component>
+        <component
+          :is="overlayComponent"
+          @set-video="setVideo"
+          :videos="videos"
+          :currentVideo="videoKey"
+        ></component>
       </VideoOverlay>
-      <img class="video-image" :src="imageSrc" :alt="imageAlt" v-if="isImageShown" />
+      <VideoImage :src="imageSrc" :alt="imageAlt" v-if="isImageShown" />
       <VideoLowerThird
         v-if="isLowerThirdShown"
         :title="lowerThirdTitle"
@@ -39,21 +44,23 @@
         <div class="time-display">{{ currentTimeString }} / {{ durationString }}</div>
       </div>
     </div>
-    <VideoButtons @set-video="setVideo" />
+    <VideoSelector :videos="videos" :currentVideo="videoKey" @set-video="setVideo" />
     <div>{{ footnoteText }}</div>
   </main>
 </template>
 
 <script>
-import VideoButtons from './VideoButtons.vue'
+import VideoSelector from './VideoSelector.vue'
 import VideoOverlay from './VideoOverlay.vue'
 import VideoLowerThird from './VideoLowerThird.vue'
+import VideoImage from './VideoImage.vue'
 import HelloWorld from './HelloWorld.vue'
 export default {
   components: {
-    VideoButtons,
+    VideoSelector,
     VideoOverlay,
     VideoLowerThird,
+    VideoImage,
     HelloWorld
   },
   props: {
@@ -203,14 +210,6 @@ export default {
 .video-container {
   position: relative;
   max-width: 100%;
-}
-
-.video-image {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  max-width: 50%;
-  max-height: 70%;
 }
 
 .video-controls {
