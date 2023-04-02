@@ -15,7 +15,7 @@
         <!-- the one below is a dynamic component, set by the overlay event -->
         <component :is="overlayComponent" @set-video="setVideo"></component>
       </VideoOverlay>
-      <img class="video-image" :src="image.src" :alt="image.alt" v-if="isImageShown" />
+      <img class="video-image" :src="imageSrc" :alt="imageAlt" v-if="isImageShown" />
       <VideoLowerThird
         v-if="isLowerThirdShown"
         :title="lowerThirdTitle"
@@ -79,12 +79,12 @@ export default {
       isOverlayShown: false,
       isImageShown: false,
       isLowerThirdShown: false,
-      image: undefined,
+      imageSrc: undefined,
+      imageAlt: undefined,
       lowerThirdTitle: undefined,
       lowerThirdSubTitle: undefined
     }
   },
-  created() {},
   methods: {
     setVideo(videoKey) {
       this.hideOverlay()
@@ -122,18 +122,16 @@ export default {
       this.$refs.video.play()
     },
     showImage(event) {
-      this.image = {
-        src: event.src,
-        alt: event.alt
-      }
+      this.imageSrc = event.src
+      this.imageAlt = event.alt
       this.isImageShown = true
     },
     hideImage() {
-      this.image = undefined
+      this.imageSrc = undefined
+      this.imageAlt = undefined
       this.isImageShown = false
     },
     showLowerThird(event) {
-      console.log('event', event)
       this.lowerThirdTitle = event.title
       this.lowerThirdSubTitle = event.subTitle
       this.isLowerThirdShown = true
