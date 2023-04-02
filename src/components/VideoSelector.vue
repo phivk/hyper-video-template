@@ -1,6 +1,6 @@
 <template>
   <div class="flex justify-center">
-    <div v-for="videoKey in Object.keys(videos)">
+    <div v-for="videoKey in Object.keys(videos)" :key="videoKey">
       <button
         v-if="videoKey !== currentVideo"
         :class="`m-2 bg-${videoKey}`"
