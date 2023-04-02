@@ -36,5 +36,6 @@ button {
   text-align: center;
   font-size: 16px;
   border-radius: 4px;
+  cursor: pointer;
 }
 </style>
