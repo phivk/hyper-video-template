@@ -27,20 +27,7 @@
         :subTitle="lowerThirdSubTitle"
       ></VideoLowerThird>
       <div class="video-controls" v-if="hasCustomControls">
-        <font-awesome-icon
-          v-if="isPlaying"
-          icon="fa-solid fa-pause"
-          class="text-xl cursor-pointer"
-          color="#FFF"
-          @click="togglePlay()"
-        />
-        <font-awesome-icon
-          v-else
-          icon="fa-solid fa-play"
-          class="text-xl cursor-pointer"
-          color="#FFF"
-          @click="togglePlay()"
-        />
+        <ButtonPlayPause :isPlaying="isPlaying" @toggle-play="togglePlay" />
         <div class="time-display">{{ currentTimeString }} / {{ durationString }}</div>
       </div>
     </div>
@@ -54,6 +41,7 @@ import VideoSelector from './VideoSelector.vue'
 import VideoOverlay from './VideoOverlay.vue'
 import VideoLowerThird from './VideoLowerThird.vue'
 import VideoImage from './VideoImage.vue'
+import ButtonPlayPause from './ButtonPlayPause.vue'
 import HelloWorld from './HelloWorld.vue'
 export default {
   components: {
@@ -61,6 +49,7 @@ export default {
     VideoOverlay,
     VideoLowerThird,
     VideoImage,
+    ButtonPlayPause,
     HelloWorld
   },
   props: {
