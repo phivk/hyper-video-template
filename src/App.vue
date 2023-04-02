@@ -10,16 +10,16 @@ const videos = {
     path: 'src/static/videos/video-red.mp4',
     events: [
       {
-        type: 'overlay',
+        type: 'footnote',
         start: 1,
         end: 5,
-        component: 'VideoSelector'
+        text: 'Hello RED Footnote!'
       },
       {
-        type: 'footnote',
+        type: 'overlay',
         start: 4,
         end: 6,
-        text: 'Hello RED Footnote!'
+        component: 'VideoSelector'
       }
     ]
   },
