@@ -7,7 +7,7 @@
 import VideoPlayer from './components/VideoPlayer.vue'
 const videos = {
   red: {
-    path: 'src/static/videos/video-red.mp4',
+    path: 'https://raw.githubusercontent.com/phivk/hyper-video-template/main/src/static/videos/video-red.mp4',
     events: [
       {
         type: 'footnote',
