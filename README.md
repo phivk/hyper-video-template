@@ -1,6 +1,12 @@
-# hyper-video-template
+# Hypervideo Template
 
-This template should help get you started developing with Vue 3 in Vite.
+Hi 👋 This is a hackable template for creating Hypervideo experiences using Vue.
+
+Based on a Vue 3 and Vite Template, scaffolded via
+
+```sh
+npm init vue@latest
+```
 
 ## Recommended IDE Setup
 
