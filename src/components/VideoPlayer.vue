@@ -10,20 +10,12 @@
         :controls="!hasCustomControls"
         class="w-full"
       ></video>
-      <div class="video-overlay-container" v-if="isOverlayShown">
-        <div class="absolute top-0 right-0 m-4 flex flex-col text-center text-white">
-          <font-awesome-icon
-            icon="fa-solid fa-xmark"
-            class="text-xl cursor-pointer"
-            color="#FFF"
-            @click="hideOverlay()"
-          />
-          <span class="cursor-default">{{ videoOverlayTimer }}</span>
-        </div>
-        <!-- dynamic component, set by the overlay event -->
+      <VideoOverlay v-if="isOverlayShown" @hide-overlay="hideOverlay">
+        <!-- insert child elements of VideoOverlay here -->
+        <!-- the one below is a dynamic component, set by the overlay event -->
         <component :is="overlayComponent" @set-video="setVideo"></component>
-      </div>
-      <img class="video-overlay-image" :src="image.src" :alt="image.alt" v-if="isImageShown" />
+      </VideoOverlay>
+      <img class="video-image" :src="image.src" :alt="image.alt" v-if="isImageShown" />
       <div class="video-controls" v-if="hasCustomControls">
         <font-awesome-icon
           v-if="isPlaying"
@@ -42,17 +34,19 @@
         <div class="time-display">{{ currentTimeString }} / {{ durationString }}</div>
       </div>
     </div>
-    <div>{{ footnoteText }}</div>
     <VideoButtons @set-video="setVideo" />
+    <div>{{ footnoteText }}</div>
   </main>
 </template>
 
 <script>
 import VideoButtons from './VideoButtons.vue'
+import VideoOverlay from './VideoOverlay.vue'
 import HelloWorld from './HelloWorld.vue'
 export default {
   components: {
     VideoButtons,
+    VideoOverlay,
     HelloWorld
   },
   props: {
@@ -107,7 +101,6 @@ export default {
     showOverlay(event) {
       this.isOverlayShown = true
       this.$refs.video.pause()
-      this.videoOverlayTimer = 5
       this.overlayComponent = event.component
     },
     hideOverlay() {
@@ -178,17 +171,6 @@ export default {
           }
         }
       }
-    },
-    videoOverlayTimer: {
-      handler(value) {
-        if (value > 0) {
-          setTimeout(() => {
-            this.videoOverlayTimer--
-          }, 1000)
-        } else {
-          this.hideOverlay()
-        }
-      }
     }
   }
 }
@@ -200,20 +182,7 @@ export default {
   max-width: 100%;
 }
 
-.video-overlay-container {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 2rem;
-}
-
-.video-overlay-image {
+.video-image {
   position: absolute;
   top: 1rem;
   right: 1rem;
