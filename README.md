@@ -2,13 +2,20 @@
 
 Hi 👋 This is a hackable template for creating Hypervideo experiences using Vue.
 
-Originally developed for the Human Machine Interface course at [Internationale Filmschule Köln](https://www.filmschule.de/en), April 2023.
+Originally developed for the Human Machine Interface course at [Internationale Filmschule Köln](https://www.filmschule.de/en), April 2023. Inspired by Joscha Jäger's [How to create non-linear videos in HTML5](https://filmicweb.org/hypervideo-web/create-non-linear-video-html5/).
 
 Based on a Vue 3 and Vite Template, scaffolded via
 
 ```sh
 npm init vue@latest
 ```
+
+Ingredients:
+- Vite
+- Vue 3
+- Fontaweseme icons
+- ESlint
+- Prettier
 
 ## Recommended IDE Setup
 
