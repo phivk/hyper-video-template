@@ -11,11 +11,11 @@ npm init vue@latest
 ```
 
 Ingredients:
-- Vite
-- Vue 3
-- Fontaweseme icons
-- ESlint
-- Prettier
+- [Vite](https://vitejs.dev/)
+- [Vue 3](https://vuejs.org/)
+- [Fontaweseme icons](https://fontawesome.com/)
+- [ESlint](https://eslint.org/)
+- [Prettier](https://prettier.io/)
 
 ## Recommended IDE Setup
 
